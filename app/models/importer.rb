@@ -5,7 +5,7 @@ class Importer
     def start(directory)
       destroy_all
 
-      TagLib::FileRef.open("#{Rails.root}/../../Documents/Music/Squad Goals - Future Funk DJ Mix.mp3") do |fileref|
+      TagLib::FileRef.open("#{Rails.root}/#{directory}/Squad Goals - Future Funk DJ Mix.mp3") do |fileref|
         if fileref.null?
           puts "file is null!"
         elsif

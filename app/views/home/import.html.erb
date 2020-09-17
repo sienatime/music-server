@@ -1,1 +1,5 @@
-import!
+<%= form_with(url: "/import", method: "get") do %>
+  <%= label_tag(:directory, "Music directory path:") %>
+  <%= text_field_tag(:directory, "../../Documents/Music") %>
+  <%= submit_tag("Import") %>
+<% end %>

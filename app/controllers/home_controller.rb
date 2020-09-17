@@ -8,6 +8,6 @@ class HomeController < ApplicationController
   end
 
   def import
-    Importer.start("")
+    Importer.start(params["directory"])
   end
 end
