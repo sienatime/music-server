@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 
   resources :artists, only: [:index, :show]
   resources :albums, only: [:index, :show]
-
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :songs do
+    collection do
+      get 'download'
+    end
+  end
 end

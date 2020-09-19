@@ -1,9 +1,12 @@
+<%= javascript_pack_tag 'song_download' %>
+
 <h1><%= @album.title %></h1>
 <h2>by <%= link_to @album.artist.name, artist_path(@album.artist) %></h2>
 
 <table>
 <thead>
   <tr>
+    <td><input type="checkbox" id="selectAll"/></td>
     <td>Disc</td>
     <td>Track</td>
     <td>Title</td>
@@ -13,6 +16,7 @@
 <tbody>
 <% @album.songs.order(disc_number: :asc, track_number: :asc).each do |song| %>
 <tr>
+  <td><input type="checkbox" id="<%= song.id %>" class="checkbox-song"/></td>
   <td><%= song.disc_number%></td>
   <td><%= song.track_number%></td>
   <td><%= song.title %></td>
@@ -22,3 +26,5 @@
 <% end %>
 </tbody>
 </table>
+
+<button id="downloadButton" data-url="<%= download_songs_path %>">Download</button>
