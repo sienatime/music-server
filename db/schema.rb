@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_09_16_234608) do
     t.string "genre"
     t.integer "year"
     t.integer "length"
+    t.integer "disc_number"
     t.string "path"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

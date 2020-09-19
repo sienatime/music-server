@@ -8,6 +8,7 @@ class CreateSongs < ActiveRecord::Migration[6.0]
       t.string :genre
       t.integer :year
       t.integer :length
+      t.integer :disc_number
       t.string :path
 
       t.timestamps

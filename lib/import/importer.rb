@@ -56,10 +56,17 @@ module Import
       tag.frame_list("TPE2").first.to_s
     end
 
+    def disc_number(tag)
+      # returns a string like 3/4, or nil
+      if (disc_info = tag.frame_list("TPOS").first.to_s)
+        disc_info.split("/").first
+      end
+    end
+
     def create_album(tag, song_artist)
       return if tag.album.blank?
 
-      if (album_artist_name = album_artist(tag))
+      if (album_artist_name = album_artist(tag)).present?
         album_artist = Artist.find_or_create_by(name: album_artist_name)
         Album.find_or_create_by(title: tag.album, artist_id: album_artist.id)
       else
@@ -79,13 +86,17 @@ module Import
       song.year = tag.year
       song.track_number = tag.track if tag.track > 0
       song.genre = tag.genre
+      song.disc_number = disc_number(tag)
       song.length = length_in_seconds
       song.path = path
 
       if song.valid?
         song.save!
       else
-        song_import_error = SongImportError.new(song.errors.full_messages.join(", "), song.path)
+        song_import_error = SongImportError.new(
+          song.errors.full_messages.join(", "),
+          song.path
+        )
         @errors << song_import_error
       end
     end
