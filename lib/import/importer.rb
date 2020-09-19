@@ -14,7 +14,7 @@ module Import
 
       absolute_path = "#{Rails.root}/#{@directory}"
 
-      recurse(absolute_path)
+      recurse(absolute_path, @directory)
 
       @totals[:albums] = Album.count
       @totals[:artists] = Artist.count
@@ -31,28 +31,28 @@ module Import
 
     private
 
-    def recurse(absolute_path)
+    def recurse(absolute_path, original_path)
       Dir.foreach(absolute_path) do |filename|
         next if filename == '.' or filename == '..'
 
         full_path = "#{absolute_path}/#{filename}"
-        puts "working with #{full_path}"
+        relative_path = "#{original_path}/#{filename}"
 
         if File.directory?(full_path)
-          recurse(full_path)
+          recurse(full_path, relative_path)
         else
           TagLib::FileRef.open(full_path) do |fileref|
             if fileref.null?
               @not_processed << full_path
             elsif
-              create_song(fileref.tag, fileref.audio_properties.length_in_seconds)
+              create_song(fileref.tag, fileref.audio_properties.length_in_seconds, relative_path)
             end
           end
         end
       end
     end
 
-    def create_song(tag, length_in_seconds)
+    def create_song(tag, length_in_seconds, path)
       song = Song.new
 
       artist = Artist.find_or_create_by(name: tag.artist)
@@ -67,13 +67,14 @@ module Import
       song.track_number = tag.track if tag.track > 0
       song.genre = tag.genre
       song.length = length_in_seconds
+      song.path = path
 
       if song.valid?
         song.save!
       else
-        @errors << song
+        song_import_error = SongImportError.new(song.errors.full_messages.join(", "), song.path)
+        @errors << song_import_error
       end
     end
   end
 end
-

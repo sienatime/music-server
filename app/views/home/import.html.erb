@@ -1,5 +1,9 @@
-<%= form_with(url: "/import", method: "get") do %>
+<%= javascript_pack_tag 'import' %>
+
+<%= form_with(url: "/import", method: "get", id: "importForm") do %>
   <%= label_tag(:directory, "Music directory path:") %>
   <%= text_field_tag(:directory, "../../Documents/Music") %>
   <%= submit_tag("Import") %>
 <% end %>
+
+<div id="results"></div>

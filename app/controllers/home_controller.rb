@@ -8,6 +8,11 @@ class HomeController < ApplicationController
   end
 
   def import
-    Import::Importer.new(params["directory"]).start()
+    result = Import::Importer.new(params["directory"]).start()
+    # render partial: "import_result", locals: { result: result }
+
+    respond_to do |format|
+      format.js { render :json => result }
+    end
   end
 end
