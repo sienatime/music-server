@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     # if Artist.count == 0
       render 'home/import'
     # else
-    #   redirect_to artists_index_path
+    #   redirect_to artists_path
     # end
   end
 
