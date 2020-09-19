@@ -41,26 +41,39 @@ module Import
         if File.directory?(full_path)
           recurse(full_path, relative_path)
         else
-          TagLib::FileRef.open(full_path) do |fileref|
-            if fileref.null?
+          TagLib::MPEG::File.open(full_path) do |file|
+            if file.nil? || file.id3v2_tag.nil?
               @not_processed << full_path
             elsif
-              create_song(fileref.tag, fileref.audio_properties.length_in_seconds, relative_path)
+              create_song(file.id3v2_tag, file.audio_properties.length_in_seconds, relative_path)
             end
           end
         end
       end
     end
 
+    def album_artist(tag)
+      tag.frame_list("TPE2").first.to_s
+    end
+
+    def create_album(tag, song_artist)
+      return if tag.album.blank?
+
+      if (album_artist_name = album_artist(tag))
+        album_artist = Artist.find_or_create_by(name: album_artist_name)
+        Album.find_or_create_by(title: tag.album, artist_id: album_artist.id)
+      else
+        Album.find_or_create_by(title: tag.album, artist_id: song_artist.id)
+      end
+    end
+
     def create_song(tag, length_in_seconds, path)
       song = Song.new
 
-      artist = Artist.find_or_create_by(name: tag.artist)
-      song.artist = artist
+      song_artist = Artist.find_or_create_by(name: tag.artist)
+      song.artist = song_artist
 
-      unless tag.album.blank?
-        song.album = Album.find_or_create_by(title: tag.album, artist_id: artist.id)
-      end
+      song.album = create_album(tag, song_artist)
 
       song.title = tag.title
       song.year = tag.year
