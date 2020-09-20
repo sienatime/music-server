@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get '/import', to: 'home#import'
 
+  get '/search', to: 'search#query'
+
   resources :artists, only: [:index, :show]
   resources :albums, only: [:index, :show]
   resources :songs, only: [:index] do

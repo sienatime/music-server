@@ -1,0 +1,15 @@
+<h1>Search Results</h1>
+<%= "#{@results.count} results" %>
+<ul>
+<% @results.each do |result| %>
+
+  <% if result.is_a?(Artist) %>
+    <li><%= link_to result.name, artist_path(result) %></li>
+  <% elsif result.is_a?(Album) %>
+    <li><%= link_to result.title, album_path(result) %></li>
+  <% elsif result.is_a?(Song) %>
+    <li><%= result.title %></li>
+  <% end %>
+
+<% end %>
+</ul>

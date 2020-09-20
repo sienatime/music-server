@@ -1,3 +1,5 @@
+<%= javascript_pack_tag 'search' %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,6 +22,8 @@
       <li><%= link_to 'Songs', songs_path %></li>
     </ul>
   </nav>
+
+  <input type="text" placeholder="search" id="search-input" data-url="<%= search_path %>"/><button id="search-button" data-url="<%= search_path %>">Go</button>
 
   <body>
     <%= yield %>
