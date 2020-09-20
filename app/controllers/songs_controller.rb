@@ -1,6 +1,10 @@
 require 'zip'
 
 class SongsController < ApplicationController
+  def index
+    @songs = Song.order(title: :asc).limit(30)
+  end
+
   def download
     songs = Song.find(params[:ids])
 

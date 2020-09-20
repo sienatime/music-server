@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :artists, only: [:index, :show]
   resources :albums, only: [:index, :show]
-  resources :songs do
+  resources :songs, only: [:index] do
     collection do
       get 'download'
     end
