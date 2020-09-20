@@ -55,3 +55,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # read mp3 file tag data
 gem 'taglib-ruby'
+
+# zip files
+gem 'rubyzip'

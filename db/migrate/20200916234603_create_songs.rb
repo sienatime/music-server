@@ -9,7 +9,8 @@ class CreateSongs < ActiveRecord::Migration[6.0]
       t.integer :year
       t.integer :length
       t.integer :disc_number
-      t.string :path
+      t.string :folder
+      t.string :filename
 
       t.timestamps
 

@@ -35,7 +35,8 @@ ActiveRecord::Schema.define(version: 2020_09_16_234608) do
     t.integer "year"
     t.integer "length"
     t.integer "disc_number"
-    t.string "path"
+    t.string "folder"
+    t.string "filename"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["album_id"], name: "index_songs_on_album_id"

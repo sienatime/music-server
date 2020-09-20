@@ -45,7 +45,7 @@ module Import
             if file.nil? || file.id3v2_tag.nil?
               @not_processed << full_path
             elsif
-              create_song(file.id3v2_tag, file.audio_properties.length_in_seconds, relative_path)
+              create_song(file.id3v2_tag, file.audio_properties.length_in_seconds, original_path, filename)
             end
           end
         end
@@ -74,7 +74,7 @@ module Import
       end
     end
 
-    def create_song(tag, length_in_seconds, path)
+    def create_song(tag, length_in_seconds, folder, filename)
       song = Song.new
 
       song_artist = Artist.find_or_create_by(name: tag.artist)
@@ -88,7 +88,8 @@ module Import
       song.genre = tag.genre
       song.disc_number = disc_number(tag)
       song.length = length_in_seconds
-      song.path = path
+      song.folder = folder
+      song.filename = filename
 
       if song.valid?
         song.save!
