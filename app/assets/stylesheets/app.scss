@@ -1,0 +1,19 @@
+.song-list {
+  td {
+    padding: 8px;
+  }
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+  }
+
+  .tr-selected {
+    background-color: #dbefff;
+  }
+}
+
+body {
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}

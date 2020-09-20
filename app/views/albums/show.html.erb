@@ -3,7 +3,7 @@
 <h1><%= @album.title %></h1>
 <h2>by <%= link_to @album.artist.name, artist_path(@album.artist) %></h2>
 
-<table>
+<table class="song-list">
 <thead>
   <tr>
     <td><input type="checkbox" id="selectAll"/></td>
@@ -15,7 +15,7 @@
 </thead>
 <tbody>
 <% @album.songs.order(disc_number: :asc, track_number: :asc).each do |song| %>
-<tr>
+<tr class="song-row">
   <td><input type="checkbox" id="<%= song.id %>" class="checkbox-song"/></td>
   <td><%= song.disc_number%></td>
   <td><%= song.track_number%></td>
