@@ -16,6 +16,9 @@ module Import
 
       recurse(absolute_path, @directory)
 
+      # todo: move this to background job
+      Search::Indexer.index
+
       @totals[:albums] = Album.count
       @totals[:artists] = Artist.count
       @totals[:songs] = Song.count
