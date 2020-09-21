@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def query
-    @results = Search::Query.go(params[:query]).map do |result|
+    @results = Search::Query.go(params[:query], Rails.configuration.per_page).map do |result|
       id = result["id"]
       type = result["TableName"]
 

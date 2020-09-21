@@ -18,5 +18,7 @@ module MusicServer
 
     # autoload lib folder
     config.eager_load_paths += %W(#{config.root}/lib)
+
+    config.per_page = 30
   end
 end

@@ -1,6 +1,6 @@
 class ArtistsController < ApplicationController
   def index
-    @artists = Artist.order(name: :asc).limit(30)
+    @artists = Artist.order(name: :asc).limit(Rails.configuration.per_page)
   end
 
   def show

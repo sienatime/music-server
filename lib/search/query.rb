@@ -1,6 +1,6 @@
 module Search
   class Query
-    def self.go(term)
+    def self.go(term, per_page)
       sql =  ActiveRecord::Base.sanitize_sql(
         ["SELECT artists.id, 'artists' as TableName
         FROM artists
@@ -16,10 +16,11 @@ module Search
         FROM songs
         INNER JOIN songs_fts ON songs_fts.docid = songs.id
         WHERE songs_fts.title MATCH ?
-        LIMIT 30",
+        LIMIT ?",
         "*#{term}*",
         "*#{term}*",
-        "*#{term}*"]
+        "*#{term}*",
+        per_page]
       )
       records_array = ActiveRecord::Base.connection.execute(sql)
     end

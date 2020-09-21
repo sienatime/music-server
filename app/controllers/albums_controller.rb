@@ -1,6 +1,6 @@
 class AlbumsController < ApplicationController
   def index
-    @albums = Album.order(title: :asc).limit(30)
+    @albums = Album.order(title: :asc).limit(Rails.configuration.per_page)
   end
 
   def show

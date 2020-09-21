@@ -2,7 +2,7 @@ require 'zip'
 
 class SongsController < ApplicationController
   def index
-    @songs = Song.order(title: :asc).limit(30)
+    @songs = Song.order(title: :asc).limit(Rails.configuration.per_page)
   end
 
   def download
