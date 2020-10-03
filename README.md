@@ -6,9 +6,11 @@ This Rails app is designed to let you download your own music files over your lo
 
 ### Run the app
 
-Install Ruby 2.7+ and Rails 6. If you need help with this, check out (Rails Girls)[http://railsgirls.com/files/vienna/install.html].
+Install Ruby 2.7.0 and bundler. If you need help with this, check out (Rails Girls)[http://railsgirls.com/files/vienna/install.html].
 
 Pull or fork the repository.
+
+Run `bundle install`.
 
 Run your Rails server in a way that is accessible from the local network (may vary depending on your network/firewall settings. Try `rails server -p 80` or `rails server -b 0.0.0.0` if the regular ol' `rails server` doesn't work for you).
 
